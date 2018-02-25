@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer"
+    android:layout_width="200dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:background="#40495e">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rly_myinfo1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <ImageView
+                android:id="@+id/icon_user"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/icon_user"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/icon_user"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#477795"
+                    android:textSize="10sp"
+                    android:text="로그인"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#f2eff0"
+                    android:textSize="10sp"
+                    android:layout_marginTop="5dp"
+                    android:text="로그인이 필요합니다"/>
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#343d4f"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rly_myinfo2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/icon_user2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/icon_user" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="OOO님 환영합니다."
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="#f2eff0"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="test@test.com"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="#f2eff0"
+                    android:textSize="12sp" />
+                <Button
+                    android:layout_width="60dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="#fff"
+                    android:textSize="12sp"
+                    android:text="정보수정"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="예치금 : 0원"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="#f2eff0"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="보유 포인트 : 0P"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="#f2eff0"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/bt_send"
+                        android:layout_width="50dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="#fff"
+                        android:textSize="12sp"
+                        android:text="선물하기"/>
+
+                    <Button
+                        android:id="@+id/bt_change"
+                        android:layout_width="50dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="#fff"
+                        android:textSize="12sp"
+                        android:text="환전하기"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="머니비앤비 점수 : 0점"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="#f2eff0"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#343d4f"></LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rly_item1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="투자하기"
+                    android:textColor="#f2eff0"
+                    android:textSize="14sp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_width="10dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="5dp"
+                    android:rotation="180"
+                    android:background="@drawable/icon_back" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#343d4f"></LinearLayout>
+
+
+
+        <RelativeLayout
+            android:id="@+id/rly_item2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="대출하기"
+                    android:textColor="#f2eff0"
+                    android:textSize="14sp"
+                    android:layout_weight="1"/>
+
+
+
+                <TextView
+                    android:layout_width="10dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="5dp"
+                    android:rotation="180"
+                    android:background="@drawable/icon_back" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#343d4f"></LinearLayout>
+
+
+
+        <RelativeLayout
+            android:id="@+id/rly_item3"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="충전소"
+                    android:textColor="#f2eff0"
+                    android:textSize="14sp"
+                    android:layout_weight="1"/>
+
+
+                <TextView
+                    android:layout_width="10dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="5dp"
+                    android:rotation="180"
+                    android:background="@drawable/icon_back" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#343d4f"></LinearLayout>
+
+
+
+        <RelativeLayout
+            android:id="@+id/rly_item4"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="회사소개"
+                    android:textColor="#f2eff0"
+                    android:textSize="14sp"
+                    android:layout_weight="1"/>
+
+
+                <TextView
+                    android:layout_width="10dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="5dp"
+                    android:rotation="180"
+                    android:background="@drawable/icon_back" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#343d4f"></LinearLayout>
+
+
+
+        <RelativeLayout
+            android:id="@+id/rly_item5"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="플랫폼소식"
+                    android:textColor="#f2eff0"
+                    android:textSize="14sp"
+                    android:layout_weight="1"/>
+
+
+                <TextView
+                    android:layout_width="10dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="5dp"
+                    android:rotation="180"
+                    android:background="@drawable/icon_back" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#343d4f"></LinearLayout>
+
+
+
+        <RelativeLayout
+            android:id="@+id/rly_item6"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="고객지원"
+                    android:textColor="#f2eff0"
+                    android:textSize="14sp"
+                    android:layout_weight="1"/>
+
+
+                <TextView
+                    android:layout_width="10dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="5dp"
+                    android:rotation="180"
+                    android:background="@drawable/icon_back" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#343d4f"></LinearLayout>
+
+
+
+        <RelativeLayout
+            android:id="@+id/rly_item7"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="계약서 작성"
+                    android:textColor="#f2eff0"
+                    android:textSize="14sp"
+                    android:layout_weight="1"/>
+
+
+
+                <TextView
+                    android:layout_width="10dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="5dp"
+                    android:rotation="180"
+                    android:background="@drawable/icon_back" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#343d4f"></LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
+

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">충전소</string>
+    <string name="t1">머니비앤비\n지갑공유플랫폼 로그인</string>
+    <string name="t2">로그인하시고 머니비앤비 지갑공유플랫폼의\n다양한 서비스를 이용해 보세요!</string>
+    <string name="t3">회원가입</string>
+    <string name="t4">안전한 회원가입을 위해 본인 인증이 필요합니다\n인증 후 회원가입이 가능합니다.</string>
+</resources>
