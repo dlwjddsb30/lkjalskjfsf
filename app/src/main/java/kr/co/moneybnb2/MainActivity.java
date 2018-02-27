@@ -1,6 +1,7 @@
 package kr.co.moneybnb2;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -17,10 +18,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
     int screen_width;
     Button bt_login,bt_menu;
     DrawerLayout dl;
+    RelativeLayout rly_myinfo1;
+    LinearLayout rly_myinfo2;
+    TextView tv1,tv2,tv3,tv4,tv5;
 
 
     @Override
@@ -48,10 +59,14 @@ public class MainActivity extends AppCompatActivity {
                 if(dl.isDrawerOpen(Gravity.LEFT)){
                     dl.closeDrawer(Gravity.LEFT);
                 }else{
+                    loadinfo();
                     dl.openDrawer(Gravity.LEFT);
                 }
             }
         });
+        if(!get("uid").equals(" ")){
+            bt_login.setVisibility(View.GONE);
+        }
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -92,8 +107,14 @@ public class MainActivity extends AppCompatActivity {
         initdl();
     }
     public void initdl(){
-        RelativeLayout rly_myinfo1 = (RelativeLayout)findViewById(R.id.rly_myinfo1);
-        LinearLayout rly_myinfo2 = (LinearLayout)findViewById(R.id.rly_myinfo2);
+         rly_myinfo1 = (RelativeLayout)findViewById(R.id.rly_myinfo1);
+         rly_myinfo2 = (LinearLayout)findViewById(R.id.rly_myinfo2);
+         tv1 = (TextView)findViewById(R.id.tv1);
+        tv2 = (TextView)findViewById(R.id.tv2);
+        tv3 = (TextView)findViewById(R.id.tv3);
+        tv4 = (TextView)findViewById(R.id.tv4);
+        tv5 = (TextView)findViewById(R.id.tv5);
+
         RelativeLayout rly_item1 = (RelativeLayout)findViewById(R.id.rly_item1);
         RelativeLayout rly_item2 = (RelativeLayout)findViewById(R.id.rly_item2);
         RelativeLayout rly_item3 = (RelativeLayout)findViewById(R.id.rly_item3);
@@ -114,5 +135,208 @@ public class MainActivity extends AppCompatActivity {
                 dl.closeDrawer(Gravity.LEFT);
             }
         });
+        if(!get("uid").equals(" ")){
+            rly_myinfo1.setVisibility(View.GONE);
+            rly_myinfo2.setVisibility(View.VISIBLE);
+            loadinfo();
+        }
+        rly_item1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://moneybnb.co.kr/moneybnb/?mode=invest")));
+            }
+        });
+        rly_item2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://moneybnb.co.kr/moneybnb/?mode=loan_step1")));
+            }
+        });
+        rly_item3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dl.closeDrawer(Gravity.LEFT);
+            }
+        });
+        rly_item4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://moneybnb.co.kr/moneybnb/?mode=introduce")));
+            }
+        });
+        rly_item5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://moneybnb.co.kr/moneybnb/?mode=bbs_list&table=notice&subject=%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD")));
+            }
+        });
+        rly_item6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://pf.kakao.com/_JSbxmd")));
+            }
+        });
+        rly_item7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=kr.co.moneybnb&hl=ko")));
+            }
+        });
+
+        bt_send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendDialog();
+            }
+        });
+        bt_change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeDialog();
+            }
+        });
+
+
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == 2) {//ㄹㅗ그인 성공
+                bt_login.setVisibility(View.GONE);
+                rly_myinfo1.setVisibility(View.GONE);
+                rly_myinfo2.setVisibility(View.VISIBLE);
+                loadinfo();
+            }else{
+
+            }
+        }
+    }
+
+    public void loadinfo(){
+        String uid = get("uid");
+        String result = "";
+        try {
+            result = new APIProc(MainActivity.this).execute("myinfo1",uid).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        JSONObject res = null;
+        try {
+            res = new JSONObject(result);
+
+            if(res.getString("result").equals("ok")){
+
+                String name = res.getJSONObject("data").getString("name");
+                String email = res.getJSONObject("data").getString("id");
+                String money = res.getJSONObject("data").getString("money");
+                String point = res.getJSONObject("data").getString("point");
+                String mpoint = res.getJSONObject("data").getString("mpoint");
+                save("name",name);
+                save("email",email);
+                save("money1",money);
+                save("money2",point);
+                save("money3",mpoint);
+                tv1.setText(name+"님 환영합니다.");
+                tv2.setText(email);
+                tv3.setText("예치금 : "+money+"원");
+                tv4.setText("보유 포인트 : "+point+"P");
+                tv5.setText("머니비앤비 점수 : "+mpoint+"점");
+
+
+
+            }else{
+                //Toast.makeText(LoginActivity.this,"회원정보를 확인해주세요",Toast.LENGTH_SHORT).show();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+    private void save(String where, String what){
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(where,what);
+        editor.commit();
+    }
+    private String get(String where){
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        return pref.getString(where, " ");
+
+    }
+
+    public void changeDialog(){
+        ChangeDialog Dlg = new ChangeDialog(MainActivity.this,  new ChangeDialog.ChangeDialogListener() {
+
+            @Override
+            public void onAccept(String point,String pass) {
+                String uid = get("uid");
+                String result = "";
+                try {
+                    result = new APIProc(MainActivity.this).execute("change",uid,point,pass).get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+                JSONObject res = null;
+                try {
+                    res = new JSONObject(result);
+
+                    if(res.getString("result").equals("ok")){
+                        Toast.makeText(MainActivity.this,"성공적으로 신청했습니다.",Toast.LENGTH_SHORT).show();
+                    }else{
+                        //Toast.makeText(LoginActivity.this,"회원정보를 확인해주세요",Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onRefuse() {
+
+            }
+        });
+        Dlg.show();
+    }
+
+    public void sendDialog(){
+        GiftDialog Dlg = new GiftDialog(MainActivity.this,  new GiftDialog.GiftDialogListener() {
+
+            @Override
+            public void onAccept(String uid2, String point,String pass) {
+                String uid = get("uid");
+                String result = "";
+                try {
+                    result = new APIProc(MainActivity.this).execute("gift",uid,uid2,point,pass).get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+                JSONObject res = null;
+                try {
+                    res = new JSONObject(result);
+
+                    if(res.getString("result").equals("ok")){
+                        Toast.makeText(MainActivity.this,"성공적으로 보냈습니다.",Toast.LENGTH_SHORT).show();
+                    }else{
+                        //Toast.makeText(LoginActivity.this,"회원정보를 확인해주세요",Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onRefuse() {
+
+            }
+        });
+        Dlg.show();
+    }
+
 }

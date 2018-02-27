@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:orientation="vertical"
+    android:layout_gravity="center">
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:textColor="#f000"
         android:layout_marginTop="40dp"
         android:text="원하시는 분께 코인을 전송하실 수 있습니다" />
 
@@ -24,6 +27,7 @@
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#f000"
             android:layout_weight="1"
             android:text="선물하실ID" />
 
@@ -47,6 +51,7 @@
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
+            android:textColor="#f000"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="선물하실 코인" />
@@ -70,6 +75,7 @@
         <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
+            android:textColor="#f000"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="비밀번호" />

@@ -60,6 +60,25 @@ public class APIProc extends AsyncTask<String, Integer, String> {
 
 
 
+		 }else if(params[0].equals("gift")){
+
+			 nameValuePair.add(new BasicNameValuePair("type", "send"));
+			 nameValuePair.add(new BasicNameValuePair("uid", params[1]));
+			 nameValuePair.add(new BasicNameValuePair("uid2", params[2]));
+			 nameValuePair.add(new BasicNameValuePair("point", params[3]));
+			 nameValuePair.add(new BasicNameValuePair("pass", params[4]));
+
+
+
+		 }else if(params[0].equals("change")){
+
+			 nameValuePair.add(new BasicNameValuePair("type", "change"));
+			 nameValuePair.add(new BasicNameValuePair("uid", params[1]));
+			 nameValuePair.add(new BasicNameValuePair("point", params[2]));
+			 nameValuePair.add(new BasicNameValuePair("pass", params[3]));
+
+
+
 		 }else{
     		 
     	 }

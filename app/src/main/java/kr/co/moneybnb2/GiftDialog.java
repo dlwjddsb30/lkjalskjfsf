@@ -19,13 +19,14 @@ public class GiftDialog extends Dialog implements View.OnClickListener {
     private EditText et2;
     private EditText et3;
 
-    public interface DepositConfirmDialogListener {
-        void onConfirm();
+    public interface GiftDialogListener {
+        void onAccept(String uid2,String point,String pass);
+        void onRefuse();
     }
 
-    private DepositConfirmDialogListener m_listener;
+    private GiftDialogListener m_listener;
 
-    public GiftDialog(Context context, DepositConfirmDialogListener listener) {
+    public GiftDialog(Context context, GiftDialogListener listener) {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_gift_confirm);
@@ -61,9 +62,11 @@ public class GiftDialog extends Dialog implements View.OnClickListener {
 
         switch (view.getId()) {
             case R.id.bt_confirm://확인버튼
+                m_listener.onAccept(et1.getText().toString(),et2.getText().toString(),et3.getText().toString());
 
                 break;
         }
+        dismiss();
     }
 
 }
