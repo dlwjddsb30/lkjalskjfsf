@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     RelativeLayout rly_myinfo1;
     LinearLayout rly_myinfo2;
     TextView tv1,tv2,tv3,tv4,tv5;
+    static int u_id = -1;
 
 
     @Override
@@ -64,9 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        if(!get("uid").equals(" ")){
-            bt_login.setVisibility(View.GONE);
-        }
+
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -84,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
                 overridePendingTransition(0, 0);
             }
         });
-
 
         iv_bt2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,11 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 dl.closeDrawer(Gravity.LEFT);
             }
         });
-        if(!get("uid").equals(" ")){
-            rly_myinfo1.setVisibility(View.GONE);
-            rly_myinfo2.setVisibility(View.VISIBLE);
-            loadinfo();
-        }
+
         rly_item1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -203,7 +197,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
             if (resultCode == 2) {//ㄹㅗ그인 성공
-                bt_login.setVisibility(View.GONE);
+                bt_login.setText("로그아웃");
+                bt_login.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        u_id = -1;
+                        rly_myinfo1.setVisibility(View.VISIBLE);
+                        rly_myinfo2.setVisibility(View.GONE);
+                        bt_login.setText("로그인");
+                        bt_login.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent in = new Intent(MainActivity.this,LoginActivity.class);
+                                startActivityForResult(in,1);
+                                overridePendingTransition(0, 0);
+                            }
+                        });
+
+                    }
+                });
                 rly_myinfo1.setVisibility(View.GONE);
                 rly_myinfo2.setVisibility(View.VISIBLE);
                 loadinfo();
@@ -214,46 +226,45 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loadinfo(){
-        String uid = get("uid");
-        String result = "";
-        try {
-            result = new APIProc(MainActivity.this).execute("myinfo1",uid).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        JSONObject res = null;
-        try {
-            res = new JSONObject(result);
-
-            if(res.getString("result").equals("ok")){
-
-                String name = res.getJSONObject("data").getString("name");
-                String email = res.getJSONObject("data").getString("id");
-                String money = res.getJSONObject("data").getString("money");
-                String point = res.getJSONObject("data").getString("point");
-                String mpoint = res.getJSONObject("data").getString("mpoint");
-                save("name",name);
-                save("email",email);
-                save("money1",money);
-                save("money2",point);
-                save("money3",mpoint);
-                tv1.setText(name+"님 환영합니다.");
-                tv2.setText(email);
-                tv3.setText("예치금 : "+money+"원");
-                tv4.setText("보유 포인트 : "+point+"P");
-                tv5.setText("머니비앤비 점수 : "+mpoint+"점");
-
-
-
-            }else{
-                //Toast.makeText(LoginActivity.this,"회원정보를 확인해주세요",Toast.LENGTH_SHORT).show();
+        if(u_id!=-1) {
+            String result = "";
+            try {
+                result = new APIProc(MainActivity.this).execute("myinfo1", Integer.toString(u_id)).get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+            JSONObject res = null;
+            try {
+                res = new JSONObject(result);
 
+                if (res.getString("result").equals("ok")) {
+
+                    String name = res.getJSONObject("data").getString("name");
+                    String email = res.getJSONObject("data").getString("id");
+                    String money = res.getJSONObject("data").getString("money");
+                    String point = res.getJSONObject("data").getString("point");
+                    String mpoint = res.getJSONObject("data").getString("mpoint");
+                    save("name", name);
+                    save("email", email);
+                    save("money1", money);
+                    save("money2", point);
+                    save("money3", mpoint);
+                    tv1.setText(name + "님 환영합니다.");
+                    tv2.setText(email);
+                    tv3.setText("예치금 : " + money + "원");
+                    tv4.setText("보유 포인트 : " + point + "P");
+                    tv5.setText("머니비앤비 점수 : " + mpoint + "점");
+
+
+                } else {
+                    //Toast.makeText(LoginActivity.this,"회원정보를 확인해주세요",Toast.LENGTH_SHORT).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
     private void save(String where, String what){
         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
@@ -272,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onAccept(String point,String pass) {
-                String uid = get("uid");
+                String uid = u_id+"";
                 String result = "";
                 try {
                     result = new APIProc(MainActivity.this).execute("change",uid,point,pass).get();
@@ -308,7 +319,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onAccept(String uid2, String point,String pass) {
-                String uid = get("uid");
+                String uid = u_id+"";
                 String result = "";
                 try {
                     result = new APIProc(MainActivity.this).execute("gift",uid,uid2,point,pass).get();

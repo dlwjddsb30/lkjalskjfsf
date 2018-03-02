@@ -9,6 +9,7 @@ import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     Button bt_login,bt_menu;
     DrawerLayout dl;
     EditText et,et2;
+    CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +39,13 @@ public class LoginActivity extends AppCompatActivity {
         et = (EditText)findViewById(R.id.editText);
         et2 = (EditText)findViewById(R.id.editText2);
         bt_login = (Button)findViewById(R.id.bt_login);
+        checkBox = (CheckBox)findViewById(R.id.checkBox);
         bt_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 login(et.getText().toString(),et2.getText().toString());
+
             }
         });
         bt_menu = (Button)findViewById(R.id.bt_menu);
@@ -55,12 +60,15 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+        if(!get("email2").equals(" ")){
+            et.setText(get("email2"));
+            checkBox.setChecked(true);
+        }
 
         tv_register = (TextView)findViewById(R.id.tv_register);
         tv_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent in = new Intent(LoginActivity.this,RegisterActivity.class);
                 startActivityForResult(in,1);
                 overridePendingTransition(0, 0);
@@ -108,7 +116,10 @@ public class LoginActivity extends AppCompatActivity {
             if(res.getString("result").equals("ok")){
 
                 //save("nname",res.getString("id"));
-                save("uid",res.getString("id"));
+                if(checkBox.isChecked()) {
+                    save("email2", et.getText().toString());
+                }
+                MainActivity.u_id = Integer.parseInt(res.getString("id"));
                 setResult(2);
                 finish();
 
@@ -125,5 +136,9 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString(where,what);
         editor.commit();
     }
+    private String get(String where){
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        return pref.getString(where, " ");
 
+    }
 }
